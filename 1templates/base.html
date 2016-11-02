@@ -1,0 +1,55 @@
+{% extends "pre-base.html" %}
+{% load pages_tags mezzanine_tags i18n staticfiles %}
+
+{% block custom %}
+    <!-- No esta ajustada -->
+    {% nevercache %}
+    {% if messages %}
+    <div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+    {% endnevercache %}
+    <!-- Fin: No esta ajustada -->
+    <section id="page-title">
+        <div class="container clearfix">
+            <h1>{% block title %}{% endblock %}</h1>
+            <ol class="breadcrumb">
+                {% spaceless %}
+                {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
+                {% endspaceless %}
+            </ol>
+        </div>
+    </section>
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
+                <div class="postcontent nobottommargin clearfix">
+                    {% block main %}{% endblock %}
+                </div>
+                <div class="sidebar nobottommargin col_last clearfix">
+                    <div class="sidebar-widgets-wrap">
+                        <div class="widget clearfix">
+                        {% nevercache %}
+                        {% include "includes/language_selector.html" %}
+                        {% include "includes/user_panel.html" %}
+                        {% endnevercache %}      
+                        </div>
+                        <div class="widget clearfix">
+                        {% block right_panel %}
+                        {% ifinstalled mezzanine.twitter %}
+                        {% include "twitter/tweets.html" %}
+                        {% endifinstalled %}
+                        {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

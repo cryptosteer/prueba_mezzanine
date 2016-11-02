@@ -1,0 +1,8 @@
+{% load mezzanine_tags i18n %}
+<div id="top-search">
+    <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+    <form action="{% url "search" %}" role="search">
+        <input type="text" class="form-control" value="" placeholder="{% trans "Search" %}" name="q" value="{{ request.REQUEST.q }}">
+        <input type="hidden" name="type" value="{{ search_model_choices.0.1 }}">
+    </form>
+</div>
